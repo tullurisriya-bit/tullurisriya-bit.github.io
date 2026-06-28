@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sai Sriya Tulluri — Robotics Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F9FC;
+    --surface: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #E2E8F0;
+    --accent: #2563EB;
+    --accent2: #7C3AED;
+    --accent-light: #EFF6FF;
+    --text: #0F172A;
+    --muted: #64748B;
+    --tag-bg: #F1F5F9;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; background: rgba(247,249,252,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 14px; color: var(--accent); letter-spacing: 0.04em; text-decoration: none; font-weight: 600; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 48px 80px; position: relative; overflow: hidden; background: linear-gradient(135deg, #F7F9FC 0%, #EFF6FF 50%, #F5F3FF 100%); }
+  .hero-dots { position: absolute; inset: 0; opacity: 0.35; background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px); background-size: 32px 32px; }
+  .hero-blob { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%); top: -200px; right: -200px; pointer-events: none; }
+  .hero-blob2 { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%); bottom: -100px; left: -100px; pointer-events: none; }
+  .hero-eyebrow { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; font-weight: 600; }
+  .hero-name { font-size: clamp(42px, 6vw, 72px); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; background: linear-gradient(135deg, #0F172A 0%, #2563EB 60%, #7C3AED 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; }
+  .hero-tagline { font-size: 19px; color: var(--muted); max-width: 600px; font-weight: 400; margin-bottom: 40px; line-height: 1.7; }
+  .hero-tagline strong { color: var(--text); font-weight: 600; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+  .badge { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; font-size: 13px; font-family: var(--mono); font-weight: 500; box-shadow: var(--shadow); }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--accent); color: #fff; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.02em; transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-outline { border: 1.5px solid var(--border); color: var(--text); padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: border-color 0.2s, color 0.2s; background: var(--surface); box-shadow: var(--shadow); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SECTIONS */
+  .section-wrap { padding: 100px 48px; max-width: 1160px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .section-title { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text); }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin-bottom: 56px; line-height: 1.7; }
+
+  /* ABOUT */
+  #about-strip { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-text p { color: var(--muted); margin-bottom: 14px; font-size: 15.5px; line-height: 1.8; }
+  .about-text p strong { color: var(--text); }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px; box-shadow: var(--shadow); }
+  .stat-number { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-label { color: var(--muted); font-size: 12px; margin-top: 6px; font-weight: 500; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 20px; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+  .project-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .project-img { background: linear-gradient(135deg, #EFF6FF, #F5F3FF); display: flex; align-items: center; justify-content: center; min-height: 200px; }
+  .project-card.featured .project-img { min-height: 300px; }
+  .img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 28px; color: var(--muted); text-align: center; }
+  .img-placeholder .icon { font-size: 36px; opacity: 0.5; }
+  .img-placeholder span { font-size: 11px; font-family: var(--mono); opacity: 0.6; color: var(--accent); }
+  .project-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+  .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .project-status { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 600; }
+  .status-live { background: #DBEAFE; color: #1d4ed8; border: 1px solid #BFDBFE; }
+  .status-completed { background: #F1F5F9; color: var(--muted); border: 1px solid var(--border); }
+  .project-org { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 8px; font-weight: 600; }
+  .project-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; color: var(--text); }
+  .project-card.featured .project-title { font-size: 23px; }
+  .project-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 18px; flex: 1; }
+  .project-highlights { margin-bottom: 20px; }
+  .highlight { display: flex; gap: 8px; align-items: flex-start; color: var(--muted); font-size: 13px; margin-bottom: 7px; }
+  .highlight::before { content: "→"; color: var(--accent); flex-shrink: 0; font-family: var(--mono); font-weight: 600; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-family: var(--mono); font-weight: 500; }
+  .patent-badge { display: inline-flex; align-items: center; gap: 5px; background: #FFFBEB; border: 1px solid #FCD34D; color: #92400E; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-family: var(--mono); font-weight: 600; }
+
+  /* SKILLS */
+  #skills-strip { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .skill-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px; box-shadow: var(--shadow); transition: border-color 0.2s; }
+  .skill-card:hover { border-color: var(--accent); }
+  .skill-icon { font-size: 24px; margin-bottom: 12px; }
+  .skill-category { font-weight: 700; font-size: 14px; margin-bottom: 12px; color: var(--text); }
+  .skill-list { list-style: none; }
+  .skill-list li { color: var(--muted); font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .skill-list li:last-child { border-bottom: none; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 36px; }
+  .tl-dot { position: absolute; left: -26px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .tl-dot.purple { background: var(--accent2); }
+  .tl-date { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 5px; font-weight: 600; }
+  .tl-role { font-weight: 700; font-size: 16px; margin-bottom: 3px; color: var(--text); }
+  .tl-org { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .tl-desc { color: var(--muted); font-size: 13.5px; line-height: 1.7; }
+
+  /* CONTACT */
+  #contact { text-align: center; padding: 100px 48px; background: linear-gradient(180deg, var(--bg) 0%, #EFF6FF 100%); }
+  .contact-inner { max-width: 560px; margin: 0 auto; }
+  .contact-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 36px; }
+  .contact-link { display: flex; align-items: center; gap: 7px; color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .contact-link:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+  footer p { color: var(--muted); font-size: 12px; font-family: var(--mono); }
+
+  /* HOW TO EDIT COMMENT BLOCK — visible only in source code */
+  @media(max-width:768px) {
+    nav { padding: 14px 20px; } .nav-links { display: none; }
+    #hero { padding: 90px 20px 60px; } .section-wrap { padding: 60px 20px; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+HOW TO EDIT THIS PORTFOLIO LATER:
+1. Open index.html in any text editor (Notepad, VS Code, etc.)
+2. To change text: find the words and type new ones
+3. To change colors: look for :root at the top — change these:
+   --bg: #F7F9FC          → page background color
+   --accent: #2563EB      → blue highlight color
+   --text: #0F172A        → main text color
+   --muted: #64748B       → grey subtitle text
+4. To add a photo: replace the img-placeholder div with:
+   <img src="images/yourphoto.jpg" style="width:100%;height:100%;object-fit:cover;"/>
+5. Save → upload to GitHub → changes go live in ~1 minute
+============================================================ -->
+
+<nav>
+  <a class="nav-logo" href="#">sriya.tulluri</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills-strip">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <p class="hero-eyebrow">// Autonomous Navigation · SLAM · Perception · Robotics</p>
+  <h1 class="hero-name">Sai Sriya<br>Tulluri</h1>
+  <p class="hero-tagline">MS Mechatronics & Robotics at <strong>NYU Tandon</strong>. I build systems that navigate, perceive, and act — from VLA-based autonomous navigation to multi-sensor SLAM pipelines and real hardware that ships.</p>
+  <div class="hero-badges">
+    <span class="badge">Autonomous Navigation</span>
+    <span class="badge">SLAM & Localization</span>
+    <span class="badge">Sensor Fusion</span>
+    <span class="badge">Robot Perception</span>
+    <span class="badge">Embedded Control</span>
+    <span class="badge">2 Patents Filed</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="mailto:st5745@nyu.edu" class="btn-outline">Get in Touch</a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about-strip">
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a robotics engineer focused on <strong>autonomous navigation, SLAM, and perception systems</strong>. Currently conducting funded research at Nagoya University on VLA-based wheelchair robot navigation under Prof. Hiroyuki Okuda.</p>
+        <p>My work spans the full stack — defining kinematics, integrating sensors, building state estimation pipelines, training perception models, and deploying everything on real robots in real environments.</p>
+        <p>I care about systems that actually work: hardware debugged at 2am, benchmarks that tell the truth, and models that run on the robot — not just in simulation.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-number">2</div><div class="stat-label">Indian Patents Filed</div></div>
+        <div class="stat-card"><div class="stat-number">7+</div><div class="stat-label">Hardware Projects Shipped</div></div>
+        <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Research Institutions</div></div>
+        <div class="stat-card"><div class="stat-number">NYU</div><div class="stat-label">Tandon School of Engineering</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects">
+  <div class="section-wrap">
+    <p class="section-label">// Selected Work</p>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">End-to-end systems — from sensor hardware and algorithm development to real-robot validation and structured testing.</p>
+    <div class="projects-grid">
+
+      <!-- FEATURED: Nagoya VLA -->
+      <div class="project-card featured">
+        <div class="project-img">
+          <!--
+            TO ADD YOUR PHOTO HERE:
+            1. Create a folder called "images" in your GitHub repo
+            2. Upload your photo there (e.g. nagoya-robot.jpg)
+            3. Delete the img-placeholder div below
+            4. Replace with: <img src="images/nagoya-robot.jpg" style="width:100%;height:100%;object-fit:cover;"/>
+          -->
+          <div class="img-placeholder">
+            <div class="icon">🤖</div>
+            <span>[ ADD LAB / ROBOT PHOTO HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">NAGOYA UNIVERSITY — SUZUKI LAB</div>
+            <span class="project-status status-live">● Active Research</span>
+          </div>
+          <h3 class="project-title">VLA-Based Autonomous Navigation for Wheelchair Mobile Robot</h3>
+          <p class="project-desc">Funded research at Nagoya University (JUACEP Program) under Assoc. Prof. Hiroyuki Okuda. Integrating vision-language-action (VLA) models into real-time wheelchair robot control for goal-directed autonomous navigation — enabling zero-shot task execution without task-specific retraining.</p>
+          <div class="project-highlights">
+            <div class="highlight">Integrating VLA models (OpenVLA, RT-2) into live robot control loops for semantic scene understanding and low-level action generation</div>
+            <div class="highlight">Mapping VLA action outputs directly to motor commands on real wheelchair hardware</div>
+            <div class="highlight">Targeting conference publication at IROS / ICRA / RA-L</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">VLA</span><span class="tag">OpenVLA</span><span class="tag">RT-2</span>
+            <span class="tag">Autonomous Navigation</span><span class="tag">ROS2</span><span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FGO -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">📡</div>
+            <span>[ ADD SENSOR SETUP / TRAJECTORY PLOT HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">NYU TANDON</div>
+            <span class="project-status status-live">● Ongoing</span>
+          </div>
+          <h3 class="project-title">Robust State Estimation via Factor Graph Optimization</h3>
+          <p class="project-desc">Multi-sensor fusion system for resilient indoor localization under slip and sensor noise — FGO-based optimization outperforming EKF in degraded conditions.</p>
+          <div class="project-highlights">
+            <div class="highlight">Fusing LiDAR, IMU, and wheel encoders via ESP32 with real-time sync</div>
+            <div class="highlight">FGO pose estimation benchmarked vs. EKF under low-friction slip scenarios</div>
+          </div>
+          <div class="project-tags"><span class="tag">FGO</span><span class="tag">SLAM</span><span class="tag">LiDAR</span><span class="tag">IMU</span><span class="tag">ESP32</span><span class="tag">C++</span></div>
+        </div>
+      </div>
+
+      <!-- SLAM -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">🗺️</div>
+            <span>[ ADD MAP / TRAJECTORY PLOT HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">NYU TANDON</div>
+            <span class="project-status status-completed">Completed</span>
+          </div>
+          <h3 class="project-title">SLAM & State Estimation — EKF + Particle Filter</h3>
+          <p class="project-desc">Full localization pipeline from scratch: EKF and Particle Filter implementations, LiDAR-camera fusion, benchmarked across 3 real sensor datasets using ATE and RTE metrics.</p>
+          <div class="project-highlights">
+            <div class="highlight">Both filters built from scratch on unicycle motion model</div>
+            <div class="highlight">ATE & RTE benchmarked across 3 datasets — comparative convergence analysis delivered</div>
+          </div>
+          <div class="project-tags"><span class="tag">EKF</span><span class="tag">Particle Filter</span><span class="tag">LiDAR</span><span class="tag">Camera Fusion</span><span class="tag">Python</span></div>
+        </div>
+      </div>
+
+      <!-- EXOSKELETON -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">🦾</div>
+            <span>[ ADD EXOSKELETON PHOTO HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">GITAM UNIVERSITY</div>
+            <span class="project-status status-completed">Completed</span>
+          </div>
+          <h3 class="project-title">Exoskeleton Mobility Arm — EOG-Controlled Rehab System</h3>
+          <p class="project-desc">Multi-joint upper-limb robotic exoskeleton — full system from SolidWorks kinematics through fabrication, EOG sensor integration, real-time closed-loop control, and structured V&V testing.</p>
+          <div class="project-highlights">
+            <div class="highlight">SolidWorks kinematics → actuator selection → EOG real-time closed-loop control</div>
+            <div class="highlight">Filed Indian Patent App. No. 202541131393</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">SolidWorks</span><span class="tag">EOG Sensors</span><span class="tag">PID Control</span><span class="tag">Arduino</span>
+            <span class="patent-badge">⚖ Patent Filed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIC TAC TOE -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">🎮</div>
+            <span>[ ADD ROBOT ARM / DEMO PHOTO HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">NYU TANDON</div>
+            <span class="project-status status-live">● Ongoing</span>
+          </div>
+          <h3 class="project-title">Vision-Guided Robotic Tic-Tac-Toe</h3>
+          <p class="project-desc">Human-robot interactive system using CV for real-time board detection. NVIDIA Jetson Nano handles perception; Arduino Uno handles actuation. End-to-end from vision to pick-and-place.</p>
+          <div class="project-highlights">
+            <div class="highlight">&gt;95% board detection accuracy under varying lighting conditions</div>
+            <div class="highlight">Sub-200ms decision loop: CV inference → motion planning → pick-and-place</div>
+          </div>
+          <div class="project-tags"><span class="tag">Computer Vision</span><span class="tag">Jetson Nano</span><span class="tag">OpenCV</span><span class="tag">Motion Planning</span><span class="tag">Arduino</span></div>
+        </div>
+      </div>
+
+      <!-- SIGN LANGUAGE -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">🤟</div>
+            <span>[ ADD SYSTEM / DEMO PHOTO HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">GITAM UNIVERSITY</div>
+            <span class="project-status status-completed">Completed</span>
+          </div>
+          <h3 class="project-title">Real-Time Sign Language Interpreter — Edge AI</h3>
+          <p class="project-desc">Embedded vision system on Raspberry Pi translating sign language gestures to text at over 20 FPS with over 99% accuracy across gesture classes, optimized for ARM hardware.</p>
+          <div class="project-highlights">
+            <div class="highlight">&gt;99% classification accuracy, &gt;20 FPS on ARM — eliminated 15% label noise</div>
+            <div class="highlight">Filed Indian Patent App. No. 202541085380</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Raspberry Pi</span><span class="tag">Edge AI</span><span class="tag">CNN</span><span class="tag">Computer Vision</span>
+            <span class="patent-badge">⚖ Patent Filed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACOUSTIC -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="img-placeholder">
+            <div class="icon">🔊</div>
+            <span>[ ADD HARDWARE / FFT PLOT HERE ]</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-org">NYU TANDON</div>
+            <span class="project-status status-completed">Completed</span>
+          </div>
+          <h3 class="project-title">Real-Time Acoustic Propeller Classification</h3>
+          <p class="project-desc">Full-stack pipeline from embedded acquisition to ML inference — multi-microphone array with SPI communication detecting propeller acoustic signatures across varying RPM and noise conditions.</p>
+          <div class="project-highlights">
+            <div class="highlight">SPI-linked Arduino → FFT/MFCC feature extraction → Random Forest classifier</div>
+            <div class="highlight">Validated end-to-end: hardware assembly through live model inference</div>
+          </div>
+          <div class="project-tags"><span class="tag">Embedded Systems</span><span class="tag">SPI</span><span class="tag">FFT/MFCC</span><span class="tag">Random Forest</span><span class="tag">Arduino</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills-strip">
+  <div class="section-wrap">
+    <p class="section-label">// Capabilities</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">🗺️</div><div class="skill-category">SLAM & Navigation</div><ul class="skill-list"><li>EKF, Particle Filter, FGO</li><li>LiDAR / IMU / Camera Fusion</li><li>ROS2, Gazebo</li><li>State Estimation & Localization</li></ul></div>
+      <div class="skill-card"><div class="skill-icon">🤖</div><div class="skill-category">VLA & Perception</div><ul class="skill-list"><li>VLAs: OpenVLA, RT-2</li><li>VLMs: LLaVA, CLIP, GPT-4V</li><li>CNN, LSTM, GAN</li><li>OpenCV, PyTorch, TensorFlow</li></ul></div>
+      <div class="skill-card"><div class="skill-icon">⚙️</div><div class="skill-category">Embedded & Control</div><ul class="skill-list"><li>Arduino, ESP32, Raspberry Pi</li><li>SPI / UART / I2C</li><li>PID Tuning, Motor Drivers</li><li>Real-Time Control Loops</li></ul></div>
+      <div class="skill-card"><div class="skill-icon">🔧</div><div class="skill-category">Mechanical Design</div><ul class="skill-list"><li>SolidWorks (assemblies, DFM)</li><li>3D Printing & Fabrication</li><li>Actuator Integration</li><li>V&V Testing & Failure Analysis</li></ul></div>
+      <div class="skill-card"><div class="skill-icon">💻</div><div class="skill-category">Software</div><ul class="skill-list"><li>Python, C++</li><li>Linux, Git, MATLAB</li><li>HuggingFace, LoRA Fine-tuning</li><li>Gazebo Simulation</li></ul></div>
+      <div class="skill-card"><div class="skill-icon">📄</div><div class="skill-category">Research & IP</div><ul class="skill-list"><li>2 Indian Patents Filed</li><li>Peer-Reviewed Publication</li><li>IROS / ICRA / RA-L Targeting</li><li>Technical Documentation</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="experience">
+  <div class="section-wrap">
+    <p class="section-label">// Background</p>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Research and engineering roles across Japan, India, and the US.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">June 2025 – August 2025</div>
+        <div class="tl-role">Research Intern — VLA-Based Autonomous Navigation</div>
+        <div class="tl-org">Suzuki Lab, Nagoya University, Japan · Assoc. Prof. Hiroyuki Okuda · JUACEP Funded</div>
+        <div class="tl-desc">VLA-based autonomous navigation for wheelchair mobile robots. International research internship with travel and accommodation funding.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot purple"></div>
+        <div class="tl-date">October 2024 – April 2025</div>
+        <div class="tl-role">Research Intern — GAN-Based ECG Reconstruction</div>
+        <div class="tl-org">Indian Institute of Technology, Hyderabad</div>
+        <div class="tl-desc">12-lead ECG reconstruction from 3-lead input via GANs. Improved RMSE by ~18% over baseline across 6 model configurations.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">May 2024 – June 2024</div>
+        <div class="tl-role">Project Trainee — Speech Emotion Recognition</div>
+        <div class="tl-org">Defence Research and Development Organization (DRDO), Hyderabad</div>
+        <div class="tl-desc">CNN-LSTM pipeline for speech emotion classification. Results presented directly to DRDO research supervisors.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot purple"></div>
+        <div class="tl-date">September 2023 – January 2024</div>
+        <div class="tl-role">AI & ML Intern</div>
+        <div class="tl-org">Edunet Foundation / Vodafone / AICTE Platform</div>
+        <div class="tl-desc">Built supervised ML models for heart disease prediction and image classification across industry-partnered modules.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="contact-inner">
+    <p class="section-label" style="text-align:center">// Let's Connect</p>
+    <h2 class="section-title">Open to Full-Time Roles</h2>
+    <p style="color:var(--muted);font-size:16px;margin-top:14px;line-height:1.7;">Targeting full-time roles in robotics engineering, autonomous navigation, SLAM, and perception systems at companies like Boston Dynamics, Amazon Robotics, and NVIDIA. Available from Summer 2027.</p>
+    <div class="contact-links">
+      <a href="mailto:st5745@nyu.edu" class="contact-link">📧 st5745@nyu.edu</a>
+      <a href="https://linkedin.com/in/sriya-tulluri" class="contact-link" target="_blank">💼 LinkedIn</a>
+      <a href="https://github.com/sriyatulluriportfolio" class="contact-link" target="_blank">🐙 GitHub</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sai Sriya Tulluri</p>
+  <p>NYU Tandon · MS Mechatronics & Robotics</p>
+</footer>
+
+</body>
+</html>
